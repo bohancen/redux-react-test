@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { HashRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 import { createStore,applyMiddleware, compose} from 'redux'
 import { Provider } from 'react-redux'
@@ -18,7 +19,9 @@ const store = createStore(reducers,compose(
 
 ReactDOM.render(
   <Provider store={store}>
-      <App />
+    <HashRouter>
+        <App />
+    </HashRouter>
   </Provider>
   , document.getElementById('root'));
 
