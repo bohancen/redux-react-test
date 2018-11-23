@@ -32,12 +32,14 @@ export function $POST_EVENT_TOGGLE(){
   return {type:POST_EVENT_TOGGLE}
 }
 
-export function $POST_SET_STATE(){
-    return dispatch=>{
-        setTimeout(function(){
-            let data = {title:'limeiling'}
-            dispatch({type:POST_SET_STATE,payload:data})
-        },2000)
-    }
+
+export function $POST_SET_STATE(data={}){
+    return {type:POST_SET_STATE,payload:data}
+    // return dispatch=>{
+    //     setTimeout(function(){
+    //         let data = {title:'limeiling'}
+    //         dispatch({type:POST_SET_STATE,payload:data})
+    //     },2000)
+    // }
 }
 

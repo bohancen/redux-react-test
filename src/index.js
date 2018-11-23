@@ -8,14 +8,15 @@ import { createStore,applyMiddleware, compose} from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducers from './redux'
+import bridge from './bridge'
 
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : f=>f
 const store = createStore(reducers,compose(
     applyMiddleware(thunk),
     reduxDevtools
 ))
-
-// ReactDOM.render(<App />, document.getElementById('root'));
+// 原生redux 处理数据store
+bridge(store)
 
 ReactDOM.render(
   <Provider store={store}>
