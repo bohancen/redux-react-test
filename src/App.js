@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom'
-import Index from './page/index'
+import Article from './page/article'
 import More from './page/more'
-// import Bridge from './bridge'
+import { connect } from 'react-redux'
 
+@connect(
+  store=>({
+    router:store.router,
+  }),{}
+)
 class App extends Component {
   render() {
-    return (
-      <div>
-        {/* <Bridge/> */}
-        <Switch>
-          <Route exact path='/' component={Index}/>
-          <Route path='/more' component={More}/>
-        </Switch>
-      </div>
-    );
+    switch(this.props.router.pathname){
+      case 'article':
+        return <Article />
+      case 'reply':
+        return <More />
+      default:
+        return null
+    }
+    
   }
 }
 

@@ -1,47 +1,28 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux'
-
-// import {
-//   $POST_SET_STATE,
-//   $POST_EVENT_OPEN,
-//   $POST_EVENT_CLOSE,
-//   $POST_EVENT_TOGGLE,
-// } from '../redux/post'
-
-// @connect(
-//   store=>({}),
-//   {
-//     $POST_SET_STATE,
-//     $POST_EVENT_OPEN,
-//     $POST_EVENT_CLOSE,
-//     $POST_EVENT_TOGGLE,
-//   }
-// )
-
-// class Bridge extends Component {
-//   constructor(props){
-//     super(props)
-//     window.POST_EVENT_TOGGLE = props.$POST_EVENT_TOGGLE
-//     window.POST_SET_STATE = props.$POST_SET_STATE
-//   }
-//   render() {
-//     return null
-//   }
-// }
-// export default Bridge
-
-import {
-  $POST_SET_STATE,
-  $POST_EVENT_OPEN,
-  $POST_EVENT_CLOSE,
-  $POST_EVENT_TOGGLE,
-} from '../redux/post'
+import {$POST_SET_STATE} from '../redux/post'
+import {$COMMENT_SET_STATE} from '../redux/comment'
+import {$ROUTER_SET_STATE} from '../redux/router'
 
 export default (store)=>{
-  window.toggle = ()=>{
-    store.dispatch($POST_EVENT_TOGGLE())
-  }
   window.setdata = (data)=>{
-    store.dispatch($POST_SET_STATE(data))   
+    store.dispatch($POST_SET_STATE(data))
   }
+  window.setrouter = (data)=>{
+    store.dispatch($ROUTER_SET_STATE(data))
+  }
+  if(window.location.search=='?devapp'){
+    devtool(store)
+  }
+}
+
+function devtool(store){
+  import('../test').then(({post,comment})=>{
+    if(typeof post == 'string'){
+      post = JSON.parse(post)
+    }
+    if(typeof comment == 'string'){
+      comment = JSON.parse(comment)
+    }
+    store.dispatch($POST_SET_STATE(post))
+    store.dispatch($COMMENT_SET_STATE(comment))
+  })
 }
